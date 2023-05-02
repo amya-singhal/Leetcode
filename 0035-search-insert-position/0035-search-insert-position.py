@@ -1,16 +1,16 @@
 class Solution(object):
     def searchInsert(self, nums, target):
-        index = 0
-        x = nums[index]
-        while (target != x):
-            if (target > x):
-                if (index == (len(nums) - 1)):
-                    return index+1
-                index += 1
-                x = nums[index]
+        l = 0
+        h = len(nums) - 1
+        while (l <= h):
+            m = h + l/2
+            if (nums[m] == target):
+                return m
+            elif (nums[m] > target):
+                h = m - 1
             else:
-                return index
-        return index
+                l = m + 1
+        return (h+1)
         """
         :type nums: List[int]
         :type target: int
