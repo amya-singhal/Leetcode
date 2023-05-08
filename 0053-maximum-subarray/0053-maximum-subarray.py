@@ -1,17 +1,9 @@
-class Solution(object):
-    def maxSubArray(self, nums):
-        maxi = []
-        maxi.append(nums[0])
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxi = nums[0]
+        maxSum = nums[0]
         for n in range(1, len(nums)):
-            x = max(maxi[n-1]+nums[n], nums[n])
-            maxi.append(x)
-        maxSubArray = maxi[0]
-        for i in range(1, len(maxi)):
-            if (maxi[i] > maxSubArray):
-                maxSubArray = maxi[i]
-        return maxSubArray
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+            maxi = max(maxi+nums[n], nums[n])
+            maxSum = max(maxSum, maxi)
+        return maxSum
         
