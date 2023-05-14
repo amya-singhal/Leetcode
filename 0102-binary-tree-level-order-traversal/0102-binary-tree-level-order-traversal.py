@@ -21,7 +21,6 @@ class Solution:
                         que.append(x.left)
                     if (x.right):
                         que.append(x.right)
-                print(tmp)
                 ans.append(tmp)
             return ans
         
