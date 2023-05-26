@@ -7,20 +7,20 @@
 class Solution:
     def findMode(self, root: Optional[TreeNode]) -> List[int]:
         n = {}
-        def recur(root, n):
-            if (not root):
-                return n
-            elif (root.val in n.keys()):
-                n[root.val] += 1
+        stack = []
+        stack.append(root)
+        while(stack):
+            x = stack.pop()
+            if x.val in n.keys():
+                n[x.val] += 1
             else:
-                n[root.val] = 1
-            if (root.left):
-                recur(root.left, n)
-            if (root.right):
-                recur(root.right, n)
-        recur(root, n)
+                n[x.val] = 1
+            if (x.left):
+                stack.append(x.left)
+            if (x.right):
+                stack.append(x.right)
         m = max(n.values())
-        ans=[]
+        ans = []
         for i in n.keys():
             if n[i] == m:
                 ans.append(i)
