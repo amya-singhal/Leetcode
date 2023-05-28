@@ -15,12 +15,7 @@ class Solution:
         """
         if not head or not head.next:
             return head
-        dummy = ListNode()
-        dummy.next = head
-        curr = dummy
-        while(curr.next and curr.next.next):
-            t1 = curr.next
-            t2 = curr.next.next
-            curr.next, t2.next, t1.next = t2, t1, t2.next
-            curr = t1
-        return dummy.next
+        temp = head.next
+        head.next = self.swapPairs(head.next.next)
+        temp.next = head
+        return temp
