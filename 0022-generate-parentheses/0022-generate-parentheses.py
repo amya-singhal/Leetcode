@@ -1,14 +1,24 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        ans = []
-        def dfs(tmp, l, r):
+        """"
+        n = 3
+        tmp -> n*2 -> add it to the ans
+        l and r
+        l < n:
+        add lP
+        and whenever r < l:
+         we can add rP
+        """
+        l = 0
+        r = 0
+        ansArray = []
+        def dfs(l, r, tmp):
             if (len(tmp) == n*2):
-                ans.append(tmp)
+                ansArray.append(tmp)
                 return
             if (l < n):
-                dfs(tmp + '(', l+1, r)
+                dfs(l+1, r, tmp+'(')
             if (r < l):
-                dfs(tmp + ')', l, r+1)
-            
-        dfs('', 0, 0)
-        return ans
+                dfs(l, r+1, tmp+')')
+        dfs(0,0,"")
+        return ansArray
