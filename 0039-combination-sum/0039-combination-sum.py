@@ -11,7 +11,6 @@ class Solution:
                 for i in candidates:
                     helper(tmp + [i], candidates, sum+i)
             else:
-                return
-                    
+                return                
         helper([], candidates, 0)
         return ans
