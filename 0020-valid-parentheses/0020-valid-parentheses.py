@@ -1,20 +1,31 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        """
+        i : {()()  
+        x = ['[', '{', '(']
+        stack = {
+        stack = {
+        ()
+        stack = {
+        ()
+        stack is not empty
+        not valid
+        """
         stack = []
-        for i in range(0, len(s)):
-            if (s[i] == '(' or s[i] == '{' or s[i] == '['):
-                stack.append(s[i])
-            else:
-                if (stack == []):
-                    return False
-                x = stack.pop()
-                if ((x == '(' and s[i] != ')') or (x == '[' and s[i] != ']') or 
-                   (x == '{' and s[i] != '}')):
-                    return False
-                else:
-                    continue
-        if (stack == []):
+        if len(s) == 0:
             return True
-        else:
+        if len(s) == 1:
             return False
+        for i in s:
+            if (i == '(' or i == '{' or i == '['):
+                stack.append(i)
+            else:
+                if (len(stack) == 0):
+                    return False # there is no open bracket preceding the closed one
+                x = stack.pop()
+                if (x == '(' and i != ')' or x == '[' and i != ']' or x == '{' and i != '}'):
+                    return False
+        if (len(stack) != 0):
+            return False
+        return True
         
