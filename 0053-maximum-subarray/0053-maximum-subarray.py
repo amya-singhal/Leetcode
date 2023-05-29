@@ -6,7 +6,4 @@ class Solution:
             x = max(maxi[n-1]+nums[n], nums[n])
             maxi.append(x)
         maxSubArray = maxi[0]
-        for i in range(1, len(maxi)):
-            if (maxi[i] > maxSubArray):
-                maxSubArray = maxi[i]
         return max(maxi)
