@@ -1,7 +1,6 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        ans = []
-        ans.append([])
+        ans = list([[]])
         if (len(nums) == 1):
             ans.append([nums[0]])
             return ans
