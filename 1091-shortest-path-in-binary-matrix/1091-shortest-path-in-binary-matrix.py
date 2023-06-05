@@ -3,6 +3,7 @@ class Solution:
         if grid[0][0] or grid[-1][-1]:
             return -1
         n = len(grid)
+        track = [[0]*n for _ in range(n)]
         grid[0][0] = 1
         directions = [(0,1), (0,-1), (1,0), (-1, 0), (1,1), (1,-1), (-1, 1), (-1, -1)]
         queue = collections.deque([(0,0,1)])
@@ -13,7 +14,7 @@ class Solution:
             for i, j in directions:
                 xnew = x + i
                 ynew = y + j
-                if ((0 <= xnew < n) and (0 <= ynew < n) and (not grid[xnew][ynew])):
-                    grid[xnew][ynew] = 1
+                if ((0 <= xnew < n) and (0 <= ynew < n) and (not grid[xnew][ynew]) and (not track[xnew][ynew])):
+                    track[xnew][ynew] = 1
                     queue.append((xnew, ynew, distance+1))
         return -1
