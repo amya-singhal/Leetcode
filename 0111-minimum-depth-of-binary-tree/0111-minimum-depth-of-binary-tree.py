@@ -9,15 +9,17 @@ class Solution:
         if not root:
             return 0
         ans = float('inf')
-        def recur(root, level):
-            nonlocal ans
-            if not root.left and not root.right:
-                return level+1
-            if root.left:
-                x = recur(root.left, level+1)
-                ans = min(ans, x)
-            if root.right:
-                y = recur(root.right, level+1)
-                ans = min(ans, y)
-            return ans
-        return recur(root, 0)
+        queue = [root]
+        level = 1
+        while(queue):
+            l = len(queue)
+            for i in range(l):
+                x = queue.pop(0)
+                if not x.right and not x.left:
+                    return level
+                if x.left:
+                    queue.append(x.left)
+                if x.right:
+                    queue.append(x.right)
+            level += 1
+        return level
