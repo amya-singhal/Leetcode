@@ -15,17 +15,14 @@ class Solution:
             l = len(queue)
             print(l)
             for i in range(l):
-                if not queue[0]:
-                    queue.pop(0)
-                    continue
-                print("x")
-                tmp.append(queue[0].val)
-                queue.append(queue[0].left)
-                queue.append(queue[0].right)
-                queue.pop(0)
+                x = queue.pop(0)
+                tmp.append(x.val)
+                if (x.left):
+                    queue.append(x.left)
+                if (x.right):
+                    queue.append(x.right)
             if tmp:
                 ans.append(tmp) 
-            print(ans)
         return ans
         
             
