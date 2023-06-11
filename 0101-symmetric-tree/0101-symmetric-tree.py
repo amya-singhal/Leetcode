@@ -8,12 +8,32 @@ class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
-        def helper(leftR, rightR):
-            if (not leftR and not rightR):
-                return True
-            if (not leftR and rightR) or (leftR and not rightR):
+        qLeft = [root.left]
+        qRight = [root.right]
+        while(qRight and qLeft):
+            x = qLeft.pop(0)
+            y = qRight.pop(0)
+            if (not x and not y):
+                continue
+            if (not x and y) or (x and not y):
                 return False
-            else:
-                return (leftR.val == rightR.val) and helper(leftR.left, rightR.right) and helper(leftR.right, rightR.left)
-        return helper(root.left, root.right)
+            if (x.val != y.val):
+                return False
+            qLeft.append(x.left)
+            qLeft.append(x.right)
+            qRight.append(y.right)
+            qRight.append(y.left)
+        if (qRight or qRight):
+            return False
+        return True
+        
+        
+#         def helper(leftR, rightR):
+#             if (not leftR and not rightR):
+#                 return True
+#             if (not leftR and rightR) or (leftR and not rightR):
+#                 return False
+#             else:
+#                 return (leftR.val == rightR.val) and helper(leftR.left, rightR.right) and helper(leftR.right, rightR.left)
+#         return helper(root.left, root.right)
         
