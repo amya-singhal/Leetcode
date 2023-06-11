@@ -13,7 +13,6 @@ class Solution:
         while(queue):
             tmp = []
             l = len(queue)
-            print(l)
             for i in range(l):
                 x = queue.pop(0)
                 tmp.append(x.val)
@@ -21,8 +20,7 @@ class Solution:
                     queue.append(x.left)
                 if (x.right):
                     queue.append(x.right)
-            if tmp:
-                ans.append(tmp) 
+            ans.append(tmp) 
         return ans
         
             
