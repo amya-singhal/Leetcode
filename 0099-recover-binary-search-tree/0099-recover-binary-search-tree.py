@@ -6,22 +6,24 @@
 #         self.right = right
 class Solution:
     def recoverTree(self, root: Optional[TreeNode]) -> None:
-        inorderTree = []
-        stack = []
-        while(root or stack):
-            while root:
-                stack.append(root)
-                root = root.left
-            root = stack.pop()
-            inorderTree.append(root)
-            root = root.right
-        sorted_order = sorted(inorderTree, key=lambda x:x.val)
-        for i in range(len(inorderTree)):
-            if inorderTree[i] != sorted_order[i]:
-                inorderTree[i].val, sorted_order[i].val = sorted_order[i].val, inorderTree[i].val
+        prev = None
+        start = None
+        end = None
+        def dfs(root):
+            nonlocal prev, start, end
+            if not root:
                 return
-        
-        
+            dfs(root.left)
+            if prev and prev.val > root.val:
+                if not start:
+                    start = prev
+                end = root
+            prev = root
+            dfs(root.right)
+        dfs(root)
+        if start and end:
+            start.val, end.val = end.val, start.val
+            
         
         """
         Do not return anything, modify root in-place instead.
