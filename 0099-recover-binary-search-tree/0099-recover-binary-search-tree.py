@@ -6,7 +6,6 @@
 #         self.right = right
 class Solution:
     def recoverTree(self, root: Optional[TreeNode]) -> None:
-        inorder = []
         inorderTree = []
         stack = []
         while(root or stack):
@@ -14,12 +13,14 @@ class Solution:
                 stack.append(root)
                 root = root.left
             root = stack.pop()
-            inorder.append(root.val)
             inorderTree.append(root)
             root = root.right
-        inorder.sort()
-        for i in range(len(inorder)):
-            inorderTree[i].val = inorder[i]
+        sorted_order = sorted(inorderTree, key=lambda x:x.val)
+        for i in range(len(inorderTree)):
+            if inorderTree[i] != sorted_order[i]:
+                inorderTree[i].val, sorted_order[i].val = sorted_order[i].val, inorderTree[i].val
+                return
+        
         
         
         """
