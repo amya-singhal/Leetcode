@@ -1,7 +1,7 @@
 class Solution:
-    def check(self, i: int, grid: List[List[int]]) -> bool:
+    def check(self, grid: List[List[int]]) -> bool:
         temp = [a for b in grid for a in b]
-        if i in temp: 
+        if 1 in temp: 
             return True
         return False
     def orangesRotting(self, grid: List[List[int]]) -> int:
@@ -12,7 +12,7 @@ class Solution:
                 if grid[i][j] == 2:
                     q.append((i, j))
         minutes = 0
-        while(q and self.check(1, grid)):
+        while(q and self.check(grid)):
             minutes += 1
             for i in range(len(q)):
                 x, y = q.pop(0)
@@ -22,7 +22,7 @@ class Solution:
                     if (0 <= xNew < len(grid) and 0 <= yNew < len(grid[0]) and grid[xNew][yNew] == 1):
                         grid[xNew][yNew] = 2
                         q.append((xNew, yNew))
-        if self.check(1, grid):
+        if self.check(grid):
             return -1
         return minutes
                     
