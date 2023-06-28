@@ -1,16 +1,13 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        ans = list([[]])
-        if (len(nums) == 1):
-            ans.append([nums[0]])
-            return ans
-        def recur(tmp, x):
-            if (x == len(nums)):
+        ans = [[]]
+        def helper(tmp, nums):
+            if tmp:
+                if tmp not in ans:
+                    ans.append(tmp)
+            if not nums:
                 return
-            tmp.append(nums[x])
-            ans.append(tmp.copy())
-            recur(tmp, x+1)
-            tmp.pop()
-            recur(tmp, x+1)
-        recur([], 0)
+            for i in range(0, len(nums)):
+                helper(tmp + [nums[i]], nums[i+1:])
+        helper([], nums)
         return ans
