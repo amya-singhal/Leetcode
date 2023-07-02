@@ -14,9 +14,7 @@ class Solution:
                 tmp += s[i]
         if tmp != "":
             words.append(tmp)
-        for i in reversed(range(0, len(words))):
-            ansString += words[i]
-            if i != 0:
-                ansString += ' '
-        return ansString
+        for word in words:
+            ansString = ' ' + word + ansString
+        return ansString[1:]
         
