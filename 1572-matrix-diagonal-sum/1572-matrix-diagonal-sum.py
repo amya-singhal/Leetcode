@@ -1,19 +1,12 @@
 class Solution:
     def diagonalSum(self, mat: List[List[int]]) -> int:
-        ans = 0
-        d2 = len(mat[0]) - 1
-        x = 0
-        while (d2 != -1):
-            if (x == d2):
-                ans += mat[x][x]
-            else:
-                ans += mat[x][x]
-                ans += mat[x][d2]
-            d2 -= 1
-            x += 1
-        return ans
-            
-            
-                    
-                
-        
+        diagonalSum = 0
+        l = 0
+        r = len(mat) - 1
+        while (l < len(mat) and r >= 0):
+            diagonalSum += mat[l][l]
+            if l != r:
+                diagonalSum += mat[l][r]
+            l += 1
+            r -= 1
+        return diagonalSum
