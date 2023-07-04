@@ -1,18 +1,12 @@
-class Solution(object):
-    def maxProfit(self, prices):
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
         l = len(prices)
-        maxNumber = prices[l-1]
-        profit = 0
-        for i in reversed(prices):
-            if i >= maxNumber:
-                maxNumber = i
-            else:
-                temp = maxNumber - i
-                profit = max(temp, profit)
-        return profit
-        
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        
+        if l < 2:
+            return 0
+        minN = prices[0]
+        maxP = 0
+        for p in prices[1:]:
+            maxP = max(maxP, p-minN)
+            minN = min(minN, p)
+        return maxP
+            
