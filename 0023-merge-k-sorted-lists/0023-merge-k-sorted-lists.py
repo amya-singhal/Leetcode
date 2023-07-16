@@ -6,8 +6,6 @@
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         ans=ListNode(0)
-        if len(lists)==0:
-            return None
         heap=[]
         heapify(heap)
         for l in range(len(lists)):
