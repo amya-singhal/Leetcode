@@ -1,5 +1,6 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        #dfs
         graph = [[] for i in range(numCourses)]
         # to make adj List
         for x, y in prerequisites:
