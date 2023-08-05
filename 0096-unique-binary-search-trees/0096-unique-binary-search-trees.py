@@ -1,5 +1,5 @@
-class Solution(object):
-    def numTrees(self, n):
+class Solution:
+    def numTrees(self, n: int) -> int:
         if (n == 0 or n == 1):
             return 1
         array = []
@@ -11,9 +11,3 @@ class Solution(object):
                 count += array[i-1]* array[j-i]
             array.append(count)
         return array[n]
-            
-        """
-        :type n: int
-        :rtype: int
-        """
-        
