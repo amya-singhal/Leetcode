@@ -7,7 +7,7 @@ class Solution:
             for x,y,t in times:
                 if a[x] + t < a[y]:
                     a[y] = a[x] + t
-        print(a)
+        # print(a)
         for i in a:
             if i == float("inf"):
                 return -1
