@@ -6,17 +6,17 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-        good = 0
+        count = 0
+        maxi = root.val
         def helper(root, maxi):
+            nonlocal count
             if not root:
                 return
-            nonlocal good
             if root.val >= maxi:
-                good += 1
                 maxi = root.val
+                count += 1
             helper(root.left, maxi)
             helper(root.right, maxi)
-        helper(root, root.val)
-        return good
+        helper(root, maxi)
+        return count
+        
