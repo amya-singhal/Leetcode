@@ -1,32 +1,30 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        #bfs
-        graph = [[] for i in range(numCourses)]
-        # to make adj List
-        for x, y in prerequisites:
-            graph[y].append(x)
-        # print(graph)
-        # visited, and indeg array
-        visited = [0]*numCourses
+        adjList = [[] for i in range(numCourses)]
+        for i,j in prerequisites:
+            adjList[j].append(i)
+        # print(adjList)
         indeg = [0]*numCourses
-        for g in range(numCourses):
-            for x in graph[g]:
+        for i in range(numCourses):
+            for x in adjList[i]:
                 indeg[x] += 1
         # print(indeg)
-        q = []
-        for g in range(numCourses):
-            if indeg[g] == 0:
-                q.append(g)
-        # print(q)
-        ans = []        
-        while q:
-            element = q.pop(0)
-            ans.append(element)
-            # print(graph[element])
-            for x in graph[element]:
-                indeg[x] -= 1
-                if indeg[x] == 0:
-                    q.append(x)
-        if len(ans) != numCourses:
-            return []
-        return ans 
+        h = []
+        for i in range(len(indeg)):
+            if indeg[i] == 0:
+                h.append(i)
+        ans = []
+        # print(h)
+        while(h):
+            for i in range(len(h)):
+                x = h.pop(0)
+                ans.append(x)
+                for neigh in adjList[x]:
+                    indeg[neigh] -= 1
+                    if indeg[neigh] == 0:
+                        h.append(neigh)
+            # print(indeg)
+        for i in range(numCourses):
+            if indeg[i] != 0:
+                return []        
+        return ans
