@@ -1,5 +1,17 @@
 class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        for i in range(1, len(nums)):
-            nums[0] ^= nums[i]
-        return nums[0]
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow = nums[0]
+        fast = nums[0]
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break
+        
+        slow = nums[0]
+        
+        while slow != fast:
+            slow = nums[slow]
+            fast = nums[fast]
+        
+        return slow
