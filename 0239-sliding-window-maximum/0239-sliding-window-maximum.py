@@ -1,16 +1,15 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        heap = []
         ans = []
-        q = []
-        i = 0
         for i in range(len(nums)):
-            if len(q) and q[0] == i-k:
-                q.pop(0)
-            while len(q) and nums[q[-1]] < nums[i]:
-                q.pop()
-            q.append(i)
+            if len(heap) and heap[0] == i-k:
+                heap.pop(0)
+            while len(heap) and nums[i] > nums[heap[-1]]:
+                heap.pop()
+            heap.append(i)
             if i >= k-1:
-                ans.append(nums[q[0]])
-            # print(q)
+                ans.append(nums[heap[0]])
+            # print(heap)
         return ans
-        
+            
