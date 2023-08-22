@@ -6,32 +6,34 @@
 #         self.right = right
 class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
-        positions = []
-        def bfs(root, val, level):
+        array = [] # index, level, value of node
+        def bfs(root, level, index):
             if not root:
                 return
-            positions.append([val, level, root.val])
-            bfs(root.left, val-1, level+1)
-            bfs(root.right, val+1, level+1)
-        bfs(root, 0, 0)   
-        positions.sort()
-        # print(positions)
-        q = positions[0][0]
-        # print(q)
+            array.append([index, level, root.val])
+            bfs(root.left, level+1, index-1)
+            bfs(root.right, level+1, index+1)
+        bfs(root, 0, 0)
+        array.sort()
+        # [[-1,1,9] [0,0,3] [0,2,15]...]
+        q = array[0][0]
         tmp = []
-        ans = []
-        for x,y, node in positions:
-            if x == q:
+        verticalTraversal = []
+        for i, l, node in array:
+            if i == q:
                 tmp.append(node)
             else:
-                ans.append(tmp)
+                verticalTraversal.append(tmp)
+                q = i
                 tmp = [node]
-                q = x
         if len(tmp) != 0:
-            ans.append(tmp)
-        return ans
+            verticalTraversal.append(tmp)
+        # tmp = [9]
+        # tmp = [3], [3, 15]
+        # tmp = [20]
+        # tmp = [7]
+        return verticalTraversal
+
                 
-                
-                
-                
-            
+        
+        
