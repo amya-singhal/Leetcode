@@ -1,9 +1,6 @@
 class Solution:
     def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
         n = len(mat)
-        if len(mat) == 1:
-            if mat[0][0] != target[0][0]:
-                return False
         if mat == target:
             return True
         rotate = 3
