@@ -1,18 +1,18 @@
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
-        tmp = []
-        l = 0
-        justifiedText = []
+        res, cur, num_of_letters = [], [], 0
         for w in words:
-            if l + len(w) + len(tmp) > maxWidth:
-                spaces = maxWidth - l
-                for i in range(maxWidth - l):
-                    tmp[i%(len(tmp) - 1 or 1)] += ' '
-                justifiedText.append(''.join(tmp))
-                tmp = []
-                l = 0
-            l += len(w)
-            tmp.append(w)
-        return justifiedText + [' '.join(tmp).ljust(maxWidth)]
-                
-        
+            if num_of_letters + len(w) + len(cur) > maxWidth:
+                if len(cur) == 1:
+                    res.append( cur[0] + ' '*(maxWidth - num_of_letters) )
+                else:
+                    num_spaces = maxWidth - num_of_letters
+                    space_between_words, num_extra_spaces = divmod( num_spaces, len(cur)-1)
+                    for i in range(num_extra_spaces):
+                        cur[i] += ' '
+                    res.append( (' '*space_between_words).join(cur) )
+                cur, num_of_letters = [], 0
+            cur += [w]
+            num_of_letters += len(w)
+        res.append( ' '.join(cur) + ' '*(maxWidth - num_of_letters - len(cur) + 1) )
+        return res
