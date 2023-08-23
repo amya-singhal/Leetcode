@@ -1,21 +1,26 @@
 class Solution:
     def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
-        x =0
-        if (len(mat) == 0):
+        n = len(mat)
+        if len(mat) == 1:
+            if mat[0][0] != target[0][0]:
+                return False
+        if mat == target:
             return True
-        while(x < 4):
+        rotate = 3
+        while(rotate > 0):
+            for i in range(n):
+                for j in range(i):
+                    if i != j:
+                        mat[i][j], mat[j][i] = mat[j][i], mat[i][j]
             l = 0
-            r = len(mat)-1
-            while(l <= r) :
-                mat[l], mat[r] = mat[r], mat[l]
+            r = n-1
+            while(l < r):
+                for i in range(n):
+                    mat[i][l], mat[i][r] = mat[i][r], mat[i][l]
                 l += 1
                 r -= 1
-            # transpose
-            for i in range(len(mat)):
-                for j in range(i):
-                    mat[i][j], mat[j][i] = mat[j][i], mat[i][j]
-            if (mat == target):
+            if target == mat:
                 return True
-            x += 1
+            rotate -= 1
         return False
-                    
+            
