@@ -6,30 +6,17 @@
 #         self.right = right
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
-        if not root:
-            return
-        preorder = []
-        preorder.append(root.val)
-        def helper(root):
-            if not root:
-                return
-            preorder.append(root.val)
-            helper(root.left)
-            helper(root.right)
-            # root = None
-        helper(root.left)
-        helper(root.right)
-        # print(preorder)
-        while(preorder):
-            # if not root:
-            #     root = TreeNode()
-            root.val = preorder[0]
-            root.left = None
-            if not root.right and len(preorder) > 1:
-                root.right = TreeNode()
+        
+        while(root):
+            if root.left:
+                x = root.left
+                while x.right:
+                    x = x.right
+                x.right = root.right
+                root.right = root.left
+                root.left = None
             root = root.right
-            preorder = preorder[1:]
-        # print(root)
+                    
             
         """
         Do not return anything, modify root in-place instead.
