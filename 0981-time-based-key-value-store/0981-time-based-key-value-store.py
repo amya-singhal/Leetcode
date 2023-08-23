@@ -1,34 +1,33 @@
 class TimeMap:
 
     def __init__(self):
-        self.ans = defaultdict(list)
+        self.d = defaultdict(list)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        if key not in self.ans:
-            self.ans[key] = [[value, timestamp]]
-        else:
-            self.ans[key].append([value, timestamp])
+        self.d[key].append([value, timestamp])
 
     def get(self, key: str, timestamp: int) -> str:
         s = ""
-        values = []
-        if key in self.ans:
-            values = self.ans[key]
-        if not values:
+        x = []
+        if key in self.d:
+            x = self.d[key]
+        if not x:
             return ""
         l = 0
-        h = len(values) - 1
-        while(l <= h):
-            m = (l+h)//2
-            if values[m][1] == timestamp:
-                s = values[m][0]
+        r = len(x)-1
+        while(l <= r):
+            m = (l+r) // 2
+            if x[m][1] == timestamp:
+                s = x[m][0]
                 break
-            elif values[m][1] > timestamp:
-                h = m - 1
+            elif x[m][1] > timestamp:
+                r = m-1
             else:
-                s = values[m][0]
-                l = m + 1
+                s = x[l][0]
+                l = m+1
         return s
+                
+                
         
 
 
