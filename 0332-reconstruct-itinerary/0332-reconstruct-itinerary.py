@@ -10,8 +10,10 @@ class Solution:
         def dfs(src):
             while adjLst[src]:
                 x = adjLst[src].pop(0)
+                # print("x", x)
                 dfs(x)
             path.append(src)
+            # print(path)
         dfs("JFK")
         return path[::-1]
 
