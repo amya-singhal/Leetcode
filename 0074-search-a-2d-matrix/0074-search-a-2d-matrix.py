@@ -7,7 +7,7 @@ class Solution:
                 return False
             else:
                 return True
-        print(a, b)
+        # print(a, b)
         l = 0
         r = len(matrix)-1
         while(l<r):
