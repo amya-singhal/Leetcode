@@ -6,11 +6,10 @@ class Solution:
         s = []
         directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
         def dfs(i, j, start, visited) -> bool:
-            # print(board[i][j], i, j, start)
-            visited.add((i, j))
             nonlocal directions
             if start == len(word)-1:
                 return True
+            visited.add((i, j))
             for x, y in directions:
                 newx = i + x
                 newy = j + y
@@ -20,7 +19,6 @@ class Solution:
         for i in range(n):
             for j in range(m):
                 if board[i][j] == first:
-                    # print(i, j)
                     visited = set()
                     if dfs(i, j, 0, visited) == True:
                         return True
