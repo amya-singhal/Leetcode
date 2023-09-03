@@ -1,24 +1,20 @@
-class Node:
-    def __init__(self):
-        self.children = {}
-        self.isWord = False
-        
 class Trie:
 
     def __init__(self):
-        self.root = Node()
+        self.children = {}
+        self.isWord = False
 
     def insert(self, word: str) -> None:
-        curr = self.root
+        curr = self
         for w in word:
             if w not in curr.children:
-                curr.children[w] = Node()
+                curr.children[w] = Trie()
             curr = curr.children[w]
         curr.isWord = True
         return
 
     def search(self, word: str) -> bool:
-        curr = self.root
+        curr = self
         for w in word:
             if w not in curr.children:
                 return False
@@ -29,7 +25,7 @@ class Trie:
         
 
     def startsWith(self, prefix: str) -> bool:
-        curr = self.root
+        curr = self
         for w in prefix:
             if w not in curr.children:
                 return False
