@@ -1,12 +1,14 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
         dp = {}
-        def helper(index, total):
+        def helper(index, currentSum):
             nonlocal dp
             if index == len(nums):
-                return 1 if total == target else 0
-            if (index, total) in dp:
-                return dp[(index, total)]
-            dp[(index, total)] = (helper(index+1, total+nums[index])+ helper(index+1, total-nums[index]))
-            return dp[(index, total)]
+                if currentSum == target:
+                    return 1
+                return 0
+            if (index, currentSum) in dp:
+                return dp[(index, currentSum)]
+            dp[(index, currentSum)] = (helper(index+1, currentSum+nums[index]) + helper(index+1, currentSum-nums[index]))
+            return dp[(index, currentSum)]
         return helper(0, 0)
