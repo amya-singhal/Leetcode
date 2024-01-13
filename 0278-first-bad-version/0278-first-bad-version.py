@@ -7,7 +7,6 @@ class Solution:
         r = n
         while (l < r):
             mid = (l+r)//2
-            print(mid)
             if not isBadVersion(mid):
                 l = mid + 1
             if isBadVersion(mid):
