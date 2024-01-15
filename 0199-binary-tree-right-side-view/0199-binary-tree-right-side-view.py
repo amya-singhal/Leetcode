@@ -7,14 +7,17 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         levels = defaultdict(list)
-        def helper(root, level):
-            if not root:
-                return
-            else:
-                levels[level] += [root.val]
-                helper(root.left, level+1)
-                helper(root.right, level+1)
-        helper(root, 0)
+        q = [root]
+        x = 0
+        while q:
+            for i in range(len(q)):
+                element = q.pop(0)
+                if not element:
+                    continue
+                levels[x] += [element.val]
+                q.append(element.left)
+                q.append(element.right)
+            x += 1
         print(levels)
         answer = []
         levelsList = levels.values()
