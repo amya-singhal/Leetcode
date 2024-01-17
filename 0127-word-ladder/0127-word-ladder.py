@@ -2,7 +2,8 @@ class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
-        wordList.append(beginWord)
+        if beginWord not in wordList:
+            wordList.append(beginWord)
         # dict : ['pattern': 'corresponding words']
         patterndict = defaultdict(list)
         for word in wordList:
@@ -11,7 +12,7 @@ class Solution:
                 patterndict[pattern].append(word)
         # patterndict = ['*it':['hit'], 'h*t':['hit','hot']....]
         que = [beginWord] # [dog, log]
-        visited = set([beginWord])
+        visited = [beginWord] # [hit, hot, dot, lot, dog, log]
         answer = 1 # 2,3,4
         while que:
             for _ in range(len(que)):
@@ -23,7 +24,7 @@ class Solution:
                     values = patterndict[pattern]
                     for y in values:
                         if y not in visited:
-                            visited.add(y)
+                            visited.append(y)
                             que.append(y)
             answer += 1
         return 0
