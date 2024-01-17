@@ -15,7 +15,6 @@ class Solution:
                 continue
             heapq.heappush(heap, [lists[i].val, i])
             lists[i] = lists[i].next
-        print(heap) # [[1,0],[1,1],[2,2]]
         while (heap):
             element, index = heapq.heappop(heap) #1,0
             if lists[index] != None:
