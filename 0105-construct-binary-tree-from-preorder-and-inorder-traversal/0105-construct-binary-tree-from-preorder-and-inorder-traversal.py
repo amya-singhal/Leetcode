@@ -9,17 +9,20 @@ class Solution:
         #  r [20,15,7] l [15,7] r [7] 
         #  r [15,20,7] l [15] r [7]
         # root = [3,9,None,None,20,15, None, None,7, None, None]
-        def helper(root, preorder, inorder):
-            if not preorder or not inorder:
+        d = defaultdict()
+        for i in range(len(inorder)):
+            d[inorder[i]] = i
+        def helper(left, right):
+            print(left, right)
+            if left > right:
+                print("here")
                 return None
-            root = TreeNode(preorder[0])
-            index = 0
-            for i in range(len(inorder)):
-                if inorder[i] == root.val:
-                    index = i
-                    break
-            root.left = helper(root.left, preorder[1:i+1], inorder[:i])
-            root.right = helper(root.right, preorder[i+1:], inorder[i+1:])
+            element = preorder.popleft()
+            root = TreeNode(element)
+            x = d[element]
+            root.left = helper(left, x-1)
+            root.right = helper(x+1, right)
             return root
-        answer = helper(None, preorder, inorder)
+        preorder = deque(preorder)
+        answer = helper(0, len(preorder)-1)
         return answer
