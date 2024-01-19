@@ -13,9 +13,7 @@ class Solution:
         for i in range(len(inorder)):
             d[inorder[i]] = i
         def helper(left, right):
-            print(left, right)
             if left > right:
-                print("here")
                 return None
             element = preorder.popleft()
             root = TreeNode(element)
