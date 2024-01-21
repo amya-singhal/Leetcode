@@ -1,45 +1,23 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        # using sliding window and hash values
         """
-        ans = []
-        s -> cbaebabacd
-        p -> abc
-        lP = 10
-        lS = 3
-        S = hash(a) + hash(b) + hash(c)
-        P = hash(c) + hash(b) + hash(a) = hash(abc)
-        base condition:
-        S == P -> 
-        ans = [0]
-        for loop:
-        S = hash(b) + hash(a) + hash(e)
-        S != P
-        S = hash(a) + hash(e) + hash(b)
-        S != P
-        S = hash(e) + hash(b) + hash(a)
-        S != P
-        S = hash(b) + hash(a) + hash(b)
-        S != P
-        S = hash(a) + hash(b) + hash(a)
-        S != P
-        S = hash(a) + hash(b) + hash(c)
-        S == P
-        ans = [6]
+        s="cbaebabacd" p = "abc"
+        hvS = hash(cba), hvP = hash(abc)
+        
+        ans = [0, 6]
         """
-        ans = []
-        lP = len(p)
-        lS = len(s)
-        S,P = 0,0
-        if (lS < lP):
+        hvS, hvP = 0, 0
+        if len(s) < len(p):
             return []
-        for i in range(lP):
-            S += hash(s[i])
-            P += hash(p[i])
-        if S==P:
+        ans = []
+        for i in range(len(p)):
+            hvS += hash(s[i])
+            hvP += hash(p[i])
+        if hvS == hvP:
             ans.append(0)
-        for i in range(lP, lS):
-            S += hash(s[i]) - hash(s[i-lP])
-            if (S == P):
-                ans.append(i-lP + 1)
+        for i in range(len(p), len(s)):
+            hvS = hvS - hash(s[i-len(p)]) + hash(s[i])
+            if hvS == hvP:
+                ans.append(i-len(p)+1)
         return ans
+        
