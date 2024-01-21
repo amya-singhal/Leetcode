@@ -8,20 +8,19 @@ class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         """
         [3,1,4,null,2]
-        heap = [1,2,3,4]
-        1
-        time complexity: n+klogn
+        k = 1
+        ordered = [1, 2, 3, 4]
         """
-        heap = [] # [1,2,3,4]
-        q = [root] # []
-        while q:
-            for _ in q:
-                x = q.pop(0)
-                if x is not None:
-                    heapq.heappush(heap, x.val)
-                    q.append(x.left)
-                    q.append(x.right)
-        ans = 0
-        for i in range(k):
-            ans = heapq.heappop(heap)
-        return ans
+        ordered = []
+        def dfs(root):
+            nonlocal ordered
+            if not root:
+                return
+            dfs(root.left)
+            ordered.append(root.val)
+            dfs(root.right)
+        dfs(root)
+        # [1,2,3,4]
+        return ordered[k-1]
+            
+        
