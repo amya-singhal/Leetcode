@@ -1,25 +1,25 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        first = word[0]
+        """
+        word = "ABCCED"
+        """
         n = len(board)
         m = len(board[0])
-        s = []
-        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-        def dfs(i, j, start, visited) -> bool:
-            nonlocal directions
-            if start == len(word)-1:
+        def dfs(i,j, index, visited):
+            visited.append([i,j])
+            if index == len(word):
                 return True
-            visited.add((i, j))
-            for x, y in directions:
-                newx = i + x
-                newy = j + y
-                if 0<=newx<n and 0<=newy<m and board[newx][newy] == word[start+1] and (newx, newy) not in visited and dfs(newx, newy, start+1, visited.copy()):
-                    return True
+            directions = [[1,0],[-1,0],[0,1],[0,-1]]
+            for x,y in directions:
+                if 0 <= i+x < n and 0 <= j+y < m and board[i+x][j+y] == word[index] and [i+x,j+y] not in visited:
+                    if dfs(i+x, j+y, index + 1, visited.copy()):
+                        return True
             return False
+                    
         for i in range(n):
             for j in range(m):
-                if board[i][j] == first:
-                    visited = set()
-                    if dfs(i, j, 0, visited) == True:
+                if board[i][j] == word[0]:
+                    print(i, j)
+                    if dfs(i, j, 1, []):
                         return True
         return False
