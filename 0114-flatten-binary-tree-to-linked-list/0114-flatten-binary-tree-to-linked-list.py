@@ -6,8 +6,10 @@
 #         self.right = right
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
-        
-        while(root):
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        while root:
             if root.left:
                 x = root.left
                 while x.right:
@@ -17,8 +19,3 @@ class Solution:
                 root.left = None
             root = root.right
                     
-            
-        """
-        Do not return anything, modify root in-place instead.
-        """
-        
