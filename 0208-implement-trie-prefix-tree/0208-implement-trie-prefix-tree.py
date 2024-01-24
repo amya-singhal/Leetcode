@@ -11,10 +11,9 @@ class Trie:
                 curr.children[w] = Trie()
             curr = curr.children[w]
         curr.isWord = True
-        return
 
     def search(self, word: str) -> bool:
-        curr = self
+        curr= self
         for w in word:
             if w not in curr.children:
                 return False
@@ -26,10 +25,10 @@ class Trie:
 
     def startsWith(self, prefix: str) -> bool:
         curr = self
-        for w in prefix:
-            if w not in curr.children:
+        for p in prefix:
+            if p not in curr.children:
                 return False
-            curr = curr.children[w]
+            curr = curr.children[p]
         return True
         
 
