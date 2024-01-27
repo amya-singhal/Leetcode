@@ -5,27 +5,19 @@ class Solution:
         cache = {(1,1): 6}
         q = [(2,0) (1,1) (0,2)]
         
-        down -> (0,1), right -> (1,0)
         """
-        cache = defaultdict(int)
-        m = len(grid)
+        m =  len(grid)
         n = len(grid[0])
-        q = [[0,0]]
-        cache[(0,0)] = grid[0][0]
-        directions = [(1,0), (0,1)]
-        while len(q) > 0:
-            x,y = q.pop(0)
-            pathValue = cache[(x,y)]
-            for i,j in directions:
-                newx, newy = x+i, y+j
-                if 0 <= newx < m and 0 <= newy < n:
-                    if (newx, newy) in cache:
-                        cache[(newx, newy)] = min(pathValue+grid[newx][newy], cache[(newx, newy)])
-                    else:
-                        cache[(newx, newy)] = pathValue+grid[newx][newy]
-                        q.append([newx, newy])
-        return cache[(m-1, n-1)]
-                            
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        dp[0][0] = grid[0][0]
+        for i in range(1, m):
+            dp[i][0] =  dp[i-1][0]+ grid[i][0]
+        for j in range(1, n):
+            dp[0][j] = dp[0][j-1] + grid[0][j]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
+        return dp[m-1][n-1]
                         
                         
                     
