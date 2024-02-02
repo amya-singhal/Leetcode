@@ -7,9 +7,10 @@ class Solution:
             sl = nums[l]*nums[l]
             sr = nums[r]*nums[r]
             if sl > sr:
-                ans.insert(0, sl)
+                ans.append(sl)
                 l += 1
             else:
-                ans.insert(0, sr)
+                ans.append(sr)
                 r -= 1
+        ans.reverse()
         return ans
