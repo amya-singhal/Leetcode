@@ -1,9 +1,17 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        s = set()
-        while(n != 1):
-            if n in s:
+        if n == 1:
+            return True
+        visited = set()
+        while (True):
+            if n in visited:
                 return False
-            s.add(n)
-            n = sum([int(i) ** 2 for i in str(n)])
-        return True
+            tmp = 0
+            for digit in str(n):
+                square = int(digit)*int(digit)
+                tmp += square
+            if tmp == 1:
+                return True
+            visited.add(n)
+            n = tmp
+            
