@@ -1,11 +1,10 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         graph = defaultdict(list)
+        indegrees = [0 for _ in range(numCourses)]
+
         for course, prereq in prerequisites:
             graph[prereq].append(course)
-        
-        indegrees = [0 for _ in range(numCourses)]
-        for course, prereq in prerequisites:
             indegrees[course] += 1
         q = []
         for i in range(numCourses):
