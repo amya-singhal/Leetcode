@@ -11,17 +11,19 @@ class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
             return None
-        visited = {node.val : Node(node.val, [])}
+        visited = {node.val : Node(node.val)}
         s = [node]
-        while (s):
-            element = s.pop(0)
+        
+        while len(s) > 0:
+            element = s.pop()
             curr = visited[element.val]
             neighbors = []
             for neigh in element.neighbors:
                 if neigh.val not in visited:
-                    visited[neigh.val] = (Node(neigh.val, []))
+                    visited[neigh.val] = Node(neigh.val)
                     s.append(neigh)
                 neighbors.append(visited[neigh.val])
             curr.neighbors = neighbors
         return visited[node.val]
-        
+                
+                
