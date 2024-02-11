@@ -5,26 +5,29 @@
 #         self.next = next
 class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-        curr = head
+        if left == right:
+            return head
         dummy = ListNode(0, head)
+        currL = head
         prev = dummy
-        while (left>1):
-            prev = curr
-            curr = curr.next
+        while left > 1:
+            prev = currL
+            currL = currL.next
             left -= 1
-            right -=1
-        # prev will stay with us
-        
-        x1 = curr
-        x = curr
-        y = curr.next
-        while(right>1):
-            tmp = y.next
-            y.next = x
-            x = y
-            y = tmp
             right -= 1
-        prev.next = x
-        x1.next = y
+        prevR = currL
+        currR = currL.next
+        while right > 1:
+            tmp = currR.next
+            currR.next = prevR
+            prevR = currR
+            currR = tmp
+            right -= 1
+        currL.next = currR
+        prev.next = prevR
         return dummy.next
+        
+        
+        
+            
         
