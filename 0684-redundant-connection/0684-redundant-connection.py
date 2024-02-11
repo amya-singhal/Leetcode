@@ -1,23 +1,26 @@
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        n = len(edges)
-        indegree = collections.defaultdict(int) # SC: O(|V|)
-        graph = collections.defaultdict(list) # SC: O(|V|+|E|)
-        for a,b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
-            indegree[a] += 1
-            indegree[b] += 1
-        # find indegree == 1
-        queue = collections.deque([i for i,v in indegree.items() if v==1])
-        while queue: # TC: O(|V|+|E|), explore all vertices and edges
-            node = queue.popleft()
-            indegree[node] -= 1
-            for nei in graph[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 1:
-                    queue.append(nei)
-        # find first indegree == 2 edges from the end
-        for a, b in edges[::-1]:
-            if indegree[a] == 2 and indegree[b]:
-                return [a,b]
+        indegrees = defaultdict(int)
+        graph = defaultdict(list)
+        for x, y in edges:
+            graph[x].append(y)
+            graph[y].append(x)
+            indegrees[x] += 1
+            indegrees[y] += 1
+        # print(graph)
+        # {1:2,4,5, 2:1,3, 3:2,4, 4:1,3, 5:1}
+        q = []
+        for i in indegrees:
+            if indegrees[i] == 1:
+                q.append(i)
+        while q:
+            #print(q)
+            x = q.pop(0)
+            indegrees[x] -= 1
+            for neigh in graph[x]:
+                indegrees[neigh] -= 1
+                if indegrees[neigh] == 1:
+                    q.append(neigh)
+        for x,y in edges[::-1]:
+            if indegrees[x] == 2 and indegrees[y]:
+                return [x,y]
