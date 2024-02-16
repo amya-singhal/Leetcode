@@ -1,21 +1,24 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        # 
-        if not height:
-            return 0
-        l, r = 0, len(height)-1
-        maxL, maxR = height[l], height[r]
+        # [4,2,0,3,2,5]
+        # ans = 9, tmp = 0
+        # s= [4, 5]
+        l = 0
+        r = len(height)-1
+        prevL = height[l]
+        prevR = height[r]
         ans = 0
-        while l < r:
-            # minH = min(maxL, maxR)
-            if maxL < maxR:
+        if r == 1:
+            return 0
+        while l <= r:
+            if prevL < prevR:
+                if prevL-height[l] > 0:
+                    ans += prevL-height[l]
+                prevL = max(prevL, height[l])
                 l += 1
-                maxL = max(maxL, height[l])
-                ans += maxL - height[l]
             else:
-                r -= 1
-                maxR = max(maxR, height[r])
-                ans += maxR - height[r]
+                if prevR-height[r] > 0:
+                    ans += prevR-height[r]
+                prevR = max(prevR, height[r])
+                r -=1
         return ans
-            
-                
