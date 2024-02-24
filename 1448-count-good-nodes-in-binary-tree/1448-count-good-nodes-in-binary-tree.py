@@ -15,6 +15,6 @@ class Solution:
                 ans += 1
             helper(root.left, max(maxi, root.val))
             helper(root.right, max(maxi, root.val))
-            return
-        helper(root, root.val)
+            
+        helper(root, float('-inf'))
         return ans
