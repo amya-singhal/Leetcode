@@ -7,14 +7,14 @@
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         ans = 0
-        def helper(root, maxi):
-            nonlocal ans
-            if not root:
-                return
-            if root.val >= maxi:
+        stack = [(root, float('-inf'))]
+        while stack:
+            node, maxNum = stack.pop()
+            if not node:
+                continue
+            if node.val >= maxNum:
                 ans += 1
-            helper(root.left, max(maxi, root.val))
-            helper(root.right, max(maxi, root.val))
-            
-        helper(root, float('-inf'))
+            stack.append((node.left, max(maxNum, node.val)))
+            stack.append((node.right, max(maxNum, node.val)))
         return ans
+                
