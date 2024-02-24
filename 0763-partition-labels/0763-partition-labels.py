@@ -8,19 +8,14 @@ class Solution:
         lo = defaultdict(int)
         for i in range(len(s)):
             lo[s[i]] = i
-        i = 0
+        l = 0
+        maxi = 0
         ans = []
-        while i < len(s):
-            start = lo[s[i]]
-            tmp = s[i:start]
-            j = 0
-            while (j < start):
-                if lo[s[j]] > start:
-                    start = lo[s[j]]
-                j += 1
-            tmp = s[i:start+1]
-            ans.append(len(tmp))
-            i = start+1
+        for r in range(len(s)):
+            maxi = max(maxi, lo[s[r]])
+            if r == maxi:
+                ans.append(r-l+1)
+                l = r+1
         return ans
             
             
