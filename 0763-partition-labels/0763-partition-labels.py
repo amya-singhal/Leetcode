@@ -15,12 +15,9 @@ class Solution:
             tmp = s[i:start]
             j = 0
             while (j < start):
-                if lo[s[j]] <= start:
-                    j += 1
-                    continue
-                else:
+                if lo[s[j]] > start:
                     start = lo[s[j]]
-                    j += 1
+                j += 1
             tmp = s[i:start+1]
             ans.append(len(tmp))
             i = start+1
