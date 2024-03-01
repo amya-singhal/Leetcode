@@ -2,18 +2,21 @@ class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         """
         coins = [1,2,5], amount = 11
-        dp = [0,1,0,0,0,0,0,0,0,0]
-        
+        q = [(0,0)]
+        q = [(1,1),(2,1),(5,1)]
+        q = [(5,1),(3,2),(6,2),(4,2),(7,2)]
         """
-        ans = float('inf')
-        dp = [(amount+1) for _ in range(amount+1)]
-        dp[0] = 0
-        for a in range(1, len(dp)):
+        q = deque()
+        q.append((0,0))
+        visit = set()
+        while q:
+            cur_coin, count = q.popleft()
+            if cur_coin == amount:
+                return count
+            
             for coin in coins:
-                if a == coin:
-                    dp[a] = 1
-                elif 0 <= a-coin:
-                    dp[a] = min(dp[a-coin]+1, dp[a])
-        if dp[-1] >= amount+1:
-            return -1
-        return dp[-1]
+                next_coin = cur_coin+coin
+                if next_coin <= amount and next_coin not in visit:
+                    visit.add(next_coin)
+                    q.append((next_coin, count+1))
+        return -1
