@@ -12,22 +12,23 @@ class Solution:
         length = 2
         index = 0
         """
-        length = 0
+        def recur(node, prev, index):
+            nonlocal head
+            if node == None:
+                return 0
+            index = recur(node.next, node, index)+1
+            
+            if index == n:
+                if node.next == None or prev == None:
+                    if prev:
+                        prev.next = node.next
+                    else:
+                        head = node.next
+                else:
+                    print(node)
+                    prev.next = node.next
+            return index
         curr = head
-        while curr:
-            curr = curr.next
-            length += 1
-        if length == 1 or length-n == 0:
-            return head.next
-        index = length-n
-        
-        curr = head
-        i = 1
-        while i < index:
-            curr = curr.next
-            i += 1
-        curr.next = curr.next.next
+        index = recur(curr, None, 0)
         return head
-        
-        
         
