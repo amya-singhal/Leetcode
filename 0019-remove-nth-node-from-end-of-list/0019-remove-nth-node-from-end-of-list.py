@@ -25,7 +25,6 @@ class Solution:
                     else:
                         head = node.next
                 else:
-                    print(node)
                     prev.next = node.next
             return index
         curr = head
