@@ -7,7 +7,7 @@ class Solution:
         i = 6
         """
         n = len(temperatures)
-        ans = [0 for _ in range(n)]
+        ans = [0]*n
         s = [0]
         for i in range(1, n):
             while (s and temperatures[s[-1]] < temperatures[i]):
