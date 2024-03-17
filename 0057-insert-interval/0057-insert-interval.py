@@ -10,7 +10,7 @@ class Solution:
             return [newInterval]
         ans = []
         i = 0
-        while i < n:
+        for i in range(n):
             if newInterval[1] < intervals[i][0]:
                 ans.append(newInterval)
                 return ans+ intervals[i:]
@@ -18,7 +18,6 @@ class Solution:
                 ans.append(intervals[i])
             else:
                 newInterval = [min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])]
-            i += 1
         ans.append(newInterval)
         return ans
         
