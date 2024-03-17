@@ -10,14 +10,13 @@ class Solution:
             return [newInterval]
         ans = []
         i = 0
-        for i in range(n):
-            if newInterval[1] < intervals[i][0]:
-                ans.append(newInterval)
-                return ans+ intervals[i:]
-            if intervals[i][1] < newInterval[0]:
-                ans.append(intervals[i])
-            else:
-                newInterval = [min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])]
+        while i < n and intervals[i][1] < newInterval[0]:
+            ans.append(intervals[i])
+            i += 1
+        while i < n and intervals[i][0] <= newInterval[1]:
+            newInterval = [min(intervals[i][0], newInterval[0]), max(intervals[i][1], newInterval[1])]
+            i += 1
         ans.append(newInterval)
+        ans = ans + intervals[i:]
         return ans
         
