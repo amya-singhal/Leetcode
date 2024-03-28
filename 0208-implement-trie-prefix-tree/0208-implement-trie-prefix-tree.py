@@ -1,31 +1,30 @@
 class Trie:
 
     def __init__(self):
-        self.isWord = False
         self.children = {}
 
     def insert(self, word: str) -> None:
-        curr = self
+        curr = self.children
         for l in word:
-            if l not in curr.children:
-                curr.children[l] = Trie()
-            curr = curr.children[l]
-        curr.isWord = True
+            if l not in curr:
+                curr[l] = {}
+            curr = curr[l]
+        curr['*'] = ''
         
     def search(self, word: str) -> bool:
-        curr = self
+        curr = self.children
         for l in word:
-            if l in curr.children:
-                curr = curr.children[l]
+            if l in curr:
+                curr = curr[l]
             else:
                 return False
-        return curr.isWord
+        return '*' in curr
         
     def startsWith(self, prefix: str) -> bool:
-        curr = self
+        curr = self.children
         for l in prefix:
-            if l in curr.children:
-                curr = curr.children[l]
+            if l in curr:
+                curr = curr[l]
             else:
                 return False
         return True
