@@ -3,8 +3,7 @@ class Solution:
         ans = []
         def helper(tmp, count):
             if len(tmp) == len(nums):
-                if tmp not in ans:
-                    ans.append(tmp)
+                ans.append(tmp[:])
                 return
             for i in count:
                 if count[i] > 0:
