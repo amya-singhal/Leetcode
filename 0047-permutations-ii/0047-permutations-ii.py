@@ -1,14 +1,16 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         ans = []
-        def helper(tmp, visit):
+        def helper(tmp, count):
             if len(tmp) == len(nums):
                 if tmp not in ans:
                     ans.append(tmp)
-            for i in range(len(nums)):
-                if i not in visit:
-                    visit.add(i)
-                    helper(tmp+[nums[i]], visit)
-                    visit.remove(i)
-        helper([], set())
+                return
+            for i in count:
+                if count[i] > 0:
+                    count[i] -= 1
+                    helper(tmp+[i], count)
+                    count[i] += 1
+        count = Counter(nums)
+        helper([], count)
         return ans
