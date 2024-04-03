@@ -1,17 +1,17 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         ans = []
-        def helper(tmp, n, index):
-            nonlocal target
-            if n == target:
-                ans.append(tmp[:])
+        def helper(tmp, t):
+            if t > target:
                 return
-            if n > target or index >= len(candidates):
+            if t == target:
+                tmp = sorted(tmp)
+                if tmp not in ans:
+                    ans.append(tmp[:])
                 return
-            tmp.append(candidates[index])
-            helper(tmp, n+candidates[index], index)
-            tmp.pop()
-            helper(tmp, n, index+1)
-        helper([], 0, 0)
+            else:
+                for i in candidates:
+                    helper(tmp+[i], t+i)
+        helper([], 0)
         return ans
-                    
+        
