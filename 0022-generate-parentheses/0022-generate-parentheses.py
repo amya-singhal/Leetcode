@@ -9,17 +9,15 @@ class Solution:
         l = r = n
         """
         ans = []
-        
         def helper(l, r, tmp):
-            if r == 0 and l == 0:
+            if l == n and r == n:
                 ans.append(tmp)
                 return
-            elif r < 0 or l < 0 or r < l:
-                return
-            else:
-                helper(l-1,r,tmp+'(')
-                helper(l,r-1,tmp+')')
-        helper(n,n,"")
+            if l < n:
+                helper(l+1, r, tmp+'(')
+            if r < l:
+                helper(l, r+1, tmp+")")
+        helper(0,0,"")
         return ans
+                
             
-        
