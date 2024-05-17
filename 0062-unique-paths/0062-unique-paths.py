@@ -1,11 +1,12 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        visited = set()
         dp = {}
-        def dfs(i,j):
-            if i == m-1 or j == n-1:
+        def dfs(x,y):
+            if x == m-1 or y == n-1:
                 return 1
-            elif (i,j) not in dp:
-                dp[(i,j)] = dfs(i+1,j) + dfs(i, j+1)
-            return dp[(i,j)]
+            elif (x,y) not in dp:
+                dp[(x,y)] = dfs(x+1,y)+dfs(x,y+1)
+            return dp[(x,y)]
         return dfs(0,0)
+
+        
