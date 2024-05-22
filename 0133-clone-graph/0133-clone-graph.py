@@ -13,16 +13,15 @@ class Solution:
         def dfs(node):
             if not node:
                 return None
-            if node in visited:
-                return visited[node]
-            ans = Node(node.val)
-            visited[node] = ans
-            neighbors = []
-            for neigh in node.neighbors:
-                neighbors.append(dfs(neigh))
-            ans.neighbors = neighbors
-            return ans
-        
+            if node.val in visited:
+                return visited[node.val]
+            else:
+                ans = Node(node.val)
+                visited[node.val] = ans
+                ansChildren = []
+                for neigh in node.neighbors:
+                    n = dfs(neigh)
+                    ansChildren.append(n)
+                ans.neighbors = ansChildren
+                return ans
         return dfs(node)
-                
-                
