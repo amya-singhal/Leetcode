@@ -1,22 +1,15 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        """ 
-        "abcadef"
-        {'a':0, 'b':1, 'c':2}
-        "abba"
-        {'a':0, 'b':2}
-        "pwwkew"
-        """
-        d = defaultdict(int)
-        tmp = 0 
+        length = len(s)
+        if length == 0:
+            return 0
         ans = 0
-        for i in range(len(s)):
-            if s[i] in d:
-                tmp = max(tmp, d[s[i]]+1)
-            ans = max(ans, i-tmp+1)
-            d[s[i]] = i
+        d = defaultdict(int)
+        l = 0 
+        for r in range(length):
+            d[s[r]] += 1
+            while d[s[r]] == 2:
+                d[s[l]] -= 1
+                l += 1
+            ans = max(ans, r-l+1)
         return ans
-                
-                
-                
-                
