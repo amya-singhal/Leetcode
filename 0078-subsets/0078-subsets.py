@@ -1,13 +1,17 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         ans = [[]]
-        def helper(tmp, x):
-            if x == len(nums):
+        l = len(nums)
+        def helper(index, tmp):
+            nonlocal nums, l
+            if index == l:
                 return
-            tmp.append(nums[x])
+            tmp.append(nums[index])
             ans.append(tmp.copy())
-            helper(tmp, x+1)
+            helper(index+1, tmp.copy())
             tmp.pop()
-            helper(tmp, x+1)
-        helper([], 0)
+            helper(index+1, tmp)
+        helper(0, [])
         return ans
+            
+        
