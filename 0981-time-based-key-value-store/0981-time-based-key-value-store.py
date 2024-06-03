@@ -2,32 +2,34 @@ class TimeMap:
 
     def __init__(self):
         self.d = defaultdict(list)
+        
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        self.d[key].append([value, timestamp])
+        d = self.d
+        heapq.heappush(d[key], (timestamp, value))
+        # -1,-2             
 
     def get(self, key: str, timestamp: int) -> str:
-        s = ""
-        x = []
-        if key in self.d:
-            x = self.d[key]
-        if not x:
+        x = self.d[key]
+        # print(self.d)
+        if len(x) == 0:
             return ""
-        l = 0
-        r = len(x)-1
-        while(l <= r):
-            m = (l+r) // 2
-            if x[m][1] == timestamp:
-                s = x[m][0]
-                break
-            elif x[m][1] > timestamp:
-                r = m-1
+        tmp = []
+        while x:
+            t, v = x.pop()
+            if t > timestamp:
+                tmp.append((t,v))
             else:
-                s = x[l][0]
-                l = m+1
-        return s
-                
-                
+                # print(t,v)
+                tmp.append((t,v))
+                for i,j in tmp:
+                    heapq.heappush(x, (i,j))
+                return v
+        for i,j in tmp:
+            heapq.heappush(x, (i,j))
+        return ""
+            
+        
         
 
 
