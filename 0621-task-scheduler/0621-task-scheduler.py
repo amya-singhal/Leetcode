@@ -1,18 +1,24 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        """
-        ["A","A","A", "B","B","B"], n = 3 --> 10
-        ["A","C","A","B","D","B"], n = 1 --> 6
-        ["A","A","A","B","B","B", "C","C","C", "D", "D", "E"] 2
-        count = a:1, b:2
-        ans = [a, b, idle, idle, a, b, ]
-        tmp = 1
-        s = [a,b]
-        """
-        task_counts = Counter(tasks)
-        maxFreq = max(task_counts.values())
-        maxCount = sum(1 for count in task_counts.values() if count == maxFreq)
+        d = Counter(tasks)
+        h = list(d.values())
+        h = [-x for x in h]
+        heapq.heapify(h)
+        ans = 0
+        while h:
+            # print(h, ans)
+            tmp = []
+            for _ in range(n+1):
+                # print(h)
+                if h:
+                    x = heappop(h)
+                    x += 1
+                    if x != 0:
+                        tmp.append(x)
+                ans += 1
+                if not h and not tmp:
+                    return ans
+            for t in tmp:
+                heappush(h, t)
+        return ans
         
-        minIntervals = (maxFreq - 1) * (n + 1) + maxCount
-        
-        return max(len(tasks), minIntervals)
