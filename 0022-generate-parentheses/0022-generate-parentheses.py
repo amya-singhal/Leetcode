@@ -4,11 +4,11 @@ class Solution:
         def helper(tmp, l, r):
             if len(tmp) == n*2:
                 ans.append(tmp)
-            else:
-                if l < n:
-                    helper(tmp+"(", l+1, r)
-                if r < l:
-                    helper(tmp+ ")", l, r+1)
+                return
+            if l < n:
+                helper(tmp+"(", l+1, r)
+            if r < l:
+                helper(tmp+ ")", l, r+1)
         helper("", 0, 0)
         return ans
         
