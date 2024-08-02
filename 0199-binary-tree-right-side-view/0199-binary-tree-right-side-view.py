@@ -8,7 +8,7 @@ class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
-        levels = defaultdict(list)
+        levels = defaultdict(int)
         queue = [root]
         level = 0 # 1, 2
         # [1], [2,3]
@@ -18,7 +18,7 @@ class Solution:
             lenQ = len(queue)
             for _ in range(lenQ):
                 x = queue.pop(0)
-                levels[level].append(x.val)
+                levels[level] = x.val
                 if x.left:
                     queue.append(x.left)
                 if x.right:
@@ -26,8 +26,7 @@ class Solution:
             level += 1
         rightSideList = []
         for i in range(level):
-            nodesInLevel = levels[i]
-            rightSideList.append(nodesInLevel[-1])
+            rightSideList.append(levels[i])
         return rightSideList
             
                 
