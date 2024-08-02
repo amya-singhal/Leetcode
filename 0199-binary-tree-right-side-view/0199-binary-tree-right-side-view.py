@@ -25,8 +25,9 @@ class Solution:
                     queue.append(x.right)
             level += 1
         rightSideList = []
-        for value in levels.values():
-            rightSideList.append(value[-1])
+        for i in range(level):
+            nodesInLevel = levels[i]
+            rightSideList.append(nodesInLevel[-1])
         return rightSideList
             
                 
