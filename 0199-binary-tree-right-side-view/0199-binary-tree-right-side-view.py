@@ -9,23 +9,29 @@ class Solution:
         if not root:
             return []
         levels = defaultdict(int)
-        queue = [root]
-        level = 0 # 1, 2
-        # [1], [2,3]
-        # {0: [1], 1: [2, 3], 2: [5, 4] }
-        # [1,2,3,null,5,null,4]
-        while queue:
-            lenQ = len(queue)
-            for _ in range(lenQ):
-                x = queue.pop(0)
-                levels[level] = x.val
-                if x.left:
-                    queue.append(x.left)
-                if x.right:
-                    queue.append(x.right)
-            level += 1
+
+        def bfs(node, level):
+            if not node:
+                return
+            levels[level] = node.val
+            bfs(node.left, level+1)
+            bfs(node.right, level+1)
+            
+        # queue = [root]
+        # level = 0
+        # while queue:
+        #     lenQ = len(queue)
+        #     for _ in range(lenQ):
+        #         x = queue.pop(0)
+        #         levels[level] = x.val
+        #         if x.left:
+        #             queue.append(x.left)
+        #         if x.right:
+        #             queue.append(x.right)
+        #     level += 1
+        bfs(root, 0)
         rightSideList = []
-        for i in range(level):
+        for i in range(len(levels)):
             rightSideList.append(levels[i])
         return rightSideList
             
