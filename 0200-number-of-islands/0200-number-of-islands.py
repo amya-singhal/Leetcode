@@ -1,22 +1,23 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        ans = 0
-        n = len(grid)
-        m = len(grid[0])
-        directions = [[0,1],[1,0],[0,-1],[-1,0]]
+        m = len(grid)
+        n = len(grid[0])
+        directions = [(1,0), (0,1), (-1,0), (0,-1)]
+        numberOfIslands = 0
+        
         def dfs(i, j):
-            nonlocal grid, directions
-            for x,y in directions:
-                newx, newy = x+i, y+j
-                if 0 <= newx < n and 0 <= newy < m and grid[newx][newy] == '1':
-                    grid[newx][newy] = '2'
-                    dfs(newx, newy)
-            
-        for i in range(n):
-            for j in range(m):
+            nonlocal directions
+            grid[i][j] = '-1'
+            for x, y in directions:
+                newi, newj = i+x, j+y
+                if 0 <= newi < m and 0 <= newj < n and grid[newi][newj] == '1':
+                    dfs(newi, newj)
+            return
+        
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j] == '1':
                     dfs(i, j)
-                    ans += 1
-        return ans
-        
-        
+                    numberOfIslands += 1
+                    
+        return numberOfIslands
