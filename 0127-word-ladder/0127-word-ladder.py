@@ -17,7 +17,7 @@ class Solution:
             for i in range(lenQ):
                 x = q.pop(0)
                 visited.add(x)
-                if x == endWord:
+                if str(x) == endWord:
                     return answer
                 for i in range(len(x)):
                     pattern = x[:i] + '*' + x[i+1:]
