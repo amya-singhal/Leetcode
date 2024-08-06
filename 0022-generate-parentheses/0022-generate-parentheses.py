@@ -11,4 +11,3 @@ class Solution:
                 helper(tmp+ ")", l, r+1)
         helper("", 0, 0)
         return ans
-        
