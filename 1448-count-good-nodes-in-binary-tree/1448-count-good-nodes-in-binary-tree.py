@@ -6,17 +6,24 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        ans = 0
-        if not root:
-            return ans
-        def helper(root, maxi):
-            nonlocal ans
-            if not root:
+        if not root.left and not root.right:
+            return 1
+        goodNodes = 0
+        
+        def checkGoodNode(node, maxValue):
+            nonlocal goodNodes
+            if not node:
                 return
-            if root.val >= maxi:
-                ans += 1
-            helper(root.left, max(root.val, maxi))
-            helper(root.right, max(root.val, maxi))
-        helper(root, root.val)
-        return ans
+            if node.val >= maxValue:
+                goodNodes += 1
+                maxValue = node.val
+            checkGoodNode(node.left, maxValue)
+            checkGoodNode(node.right, maxValue)
+            return 
+        
+        maxValue = root.val
+        checkGoodNode(root, maxValue)
+        
+        return goodNodes
+        
         
