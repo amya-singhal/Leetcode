@@ -1,11 +1,21 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        dp = [0 for _ in range(len(prices))]
-        maxx = float('-inf')
-        for i in range(1, len(prices)):
-            subMax = dp[i-3] if i-3 >= 0 else 0
-            maxx = max(maxx, subMax - prices[i-1])
-            dp[i] = max(dp[i-1], maxx+prices[i])
+        maxSoFar = 0
+        dp = {}
+        def profitCalculator(index, state):
+            if index >= len(prices):
+                return 0
+            if (index, state) in dp:
+                return dp[(index, state)]
+            if state == 'b':
+                profit = max(profitCalculator(index+1, 's') - prices[index], profitCalculator(index+1, 'b'))
+                dp[(index, state)] = profit
+            else:
+                profit = max(profitCalculator(index+2, 'b')+prices[index], profitCalculator(index+1, 's'))
+                dp[(index, state)] = profit
+            return dp[(index, state)]
         
-        return dp[-1]
+        profitCalculator(0, 'b')
+        return profitCalculator(0, 'b')
+                
                 
