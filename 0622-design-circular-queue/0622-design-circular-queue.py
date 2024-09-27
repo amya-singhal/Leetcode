@@ -1,59 +1,61 @@
 class MyCircularQueue:
-
+    """
+      4
+      -1  2  3 4 
+               f 
+          r      
+    """
     def __init__(self, k: int):
-        self.queue = [-1 for _ in range(k)]
-        self.limit = 0
-        self.rear = -1
-        self.front = -1
-        self.max_limit = k
-        # [0,1,2,3,4,0,0]
-        #    f     r
+        self.max_capacity = k
+        self.capacity = 0
+        self.array = [-1 for _ in range(k)]
+        self.f = -1
+        self.r = -1
+        
     def enQueue(self, value: int) -> bool:
-        if self.max_limit == self.limit:
+        if self.capacity == self.max_capacity:
             return False
-        newPlace = self.rear+1
-        if self.rear == self.max_limit-1:
-            newPlace = 0
-            while (self.queue[newPlace] != -1):
-                newPlace += 1
-        if self.limit == 0:
-            self.front = 0
-        self.rear = newPlace
-        self.queue[self.rear] = value
-        self.limit += 1
-        # print(self.queue, self.front, self.rear)
+        newf = self.f+1
+        if self.f == (self.max_capacity - 1):
+            newf = 0
+            while self.array[newf] != -1:
+                newf += 1
+        self.array[newf] = value
+        self.f = newf
+        if self.capacity == 0:
+            self.r = 0
+        self.capacity += 1
         return True
-
+        
     def deQueue(self) -> bool:
-        if self.limit == 0:
+        # print(self.array, self.f, self.r)
+        if self.isEmpty():
             return False
-        self.queue[self.front] = -1
-        self.limit -= 1
-        if self.limit > 0:
-            newFront = self.front + 1
-            if self.front == self.max_limit-1:
-                newFront = 0
-                while self.queue[newFront] == -1:
-                    newFront += 1
-            self.front = newFront
-        else:
-            self.front, self.rear = -1,-1
-        # print(self.queue, self.front, self.rear)
+        self.array[self.r] = -1
+        self.capacity -= 1
+        if self.capacity > 0:
+            newr = self.r+1
+            if self.r == (self.max_capacity-1):
+                newr = 0
+                while self.array[newr] == -1:
+                    newr += 1
+            self.r = newr
+        if self.capacity == 0:
+            self.r, self.f = -1, -1
         return True
-            
         
     def Front(self) -> int:
-        return self.queue[self.front]
+        # print(self.array, self.r)
+        return self.array[self.r]
 
     def Rear(self) -> int:
-        return self.queue[self.rear]
+        return self.array[self.f]
 
     def isEmpty(self) -> bool:
-        return self.limit == 0
+        return not self.capacity
         
     def isFull(self) -> bool:
-        return self.limit == self.max_limit
-
+        return self.capacity == self.max_capacity
 
 # Your MyCircularQueue object will be instantiated and called as such:
 # obj = MyCircularQueue(k)
